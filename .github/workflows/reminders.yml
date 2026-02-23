@@ -1,0 +1,25 @@
+name: Send Reminders
+
+on:
+    schedule:
+        - cron: '0 * * * *' # Runs every hour
+    workflow_dispatch: # Allow manual triggers from GitHub UI
+
+jobs:
+    send-reminders:
+        runs-on: ubuntu-latest
+
+        steps:
+          - name: Checkout code
+            uses: actions/checkout@v4
+
+          - name: Set up Go
+            uses: actions/setup-go@v5
+            with:
+                go-version: '1.26'
+            
+          - name: Run reminder scheduler
+            env:
+                SUPABASE_DB_URL: ${{ secrets.SUPABASE_DB_URL }}
+                DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
+            run: go run cmd/main.go
