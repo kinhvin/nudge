@@ -22,4 +22,4 @@ jobs:
             env:
                 SUPABASE_DB_URL: ${{ secrets.SUPABASE_DB_URL }}
                 DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
-            run: go run cmd/main.go
+            run: cd backend && go run cmd/main.go
